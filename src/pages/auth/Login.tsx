@@ -21,18 +21,20 @@ const Login: React.FC = () => {
 
     try {
       const res = await api.post("/auth/login", { email, password });
-      const { token, user } = res.data;
+      const token = res.data.token;
 
-      // Save token & user to localStorage
+      const user = {
+        email,
+        role: role,
+        name: email.split("@")[0],
+      };
+
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
-      // Update auth context
       login(email, password, role);
 
-      // Navigate based on role from API response (fallback to selected role)
-      const userRole = user?.role ?? role;
-      navigate(userRole === "doctor" ? "/doctor/dashboard" : "/patient/dashboard");
+      navigate(role === "doctor" ? "/doctor/dashboard" : "/patient/dashboard");
     } catch (err: unknown) {
       const msg =
         (err as { response?: { data?: { message?: string } } })?.response?.data?.message ||
@@ -57,7 +59,6 @@ const Login: React.FC = () => {
         <form onSubmit={handleSubmit} className="rounded-2xl border border-border bg-card p-8 shadow-sm">
           <h2 className="mb-6 text-lg font-semibold text-foreground">Sign In</h2>
 
-          {/* Error Message */}
           {error && (
             <div className="mb-4 rounded-lg bg-destructive/10 px-4 py-2.5 text-sm text-destructive border border-destructive/20">
               {error}
@@ -114,6 +115,18 @@ const Login: React.FC = () => {
           >
             {isLoading ? "Signing in..." : `Sign In as ${role === "doctor" ? "Doctor" : "Patient"}`}
           </button>
+
+          {/* 👇 Register link */}
+          <p className="mt-4 text-center text-sm text-muted-foreground">
+            Don't have an account?{" "}
+            <button
+              type="button"
+              onClick={() => navigate("/register")}
+              className="text-primary hover:underline font-medium"
+            >
+              Register
+            </button>
+          </p>
         </form>
       </div>
     </div>

@@ -7,6 +7,7 @@ import ProfileCard from "@/components/dashboard/ProfileCard";
 import { useAuth } from "@/hooks/useAuth";
 import api from "@/services/api";
 import type { Appointment } from "@/types/prescription.types";
+import BookAppointment from "@/pages/patient/BookAppointment";
 
 interface UpcomingAppointmentDTO {
   doctorName: string;
@@ -91,6 +92,10 @@ const PatientDashboard: React.FC = () => {
               variant="lab"
             />
           </div>
+
+          {/* 👇 Book Appointment inga add pannittom */}
+          <BookAppointment />
+
         </div>
 
         <div className="space-y-6">
