@@ -116,7 +116,6 @@ const Login: React.FC = () => {
             {isLoading ? "Signing in..." : `Sign In as ${role === "doctor" ? "Doctor" : "Patient"}`}
           </button>
 
-          {/* 👇 Register link */}
           <p className="mt-4 text-center text-sm text-muted-foreground">
             Don't have an account?{" "}
             <button
@@ -127,6 +126,28 @@ const Login: React.FC = () => {
               Register
             </button>
           </p>
+
+          {/* Demo Credentials */}
+          <div className="mt-4 rounded-lg border border-border bg-muted/50 p-4 text-sm">
+            <p className="font-semibold text-foreground mb-2">🔑 Demo Credentials</p>
+            <div className="space-y-2">
+              <div
+                className="cursor-pointer rounded-lg bg-card p-2 hover:bg-primary/10 transition-colors border border-border"
+                onClick={() => { setEmail("giri@gmail.com"); setPassword("123456"); setRole("doctor"); }}
+              >
+                <p className="font-medium text-foreground">🩺 Doctor</p>
+                <p className="text-muted-foreground text-xs">giri@gmail.com / 123456</p>
+              </div>
+              <div
+                className="cursor-pointer rounded-lg bg-card p-2 hover:bg-primary/10 transition-colors border border-border"
+                onClick={() => { setEmail("giri@gmail.com"); setPassword("123456"); setRole("patient"); }}
+              >
+                <p className="font-medium text-foreground">🧑‍⚕️ Patient</p>
+                <p className="text-muted-foreground text-xs">giri@gmail.com / 123456</p>
+              </div>
+            </div>
+          </div>
+
         </form>
       </div>
     </div>
